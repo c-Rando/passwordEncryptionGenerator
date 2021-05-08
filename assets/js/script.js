@@ -1,17 +1,17 @@
 // Assignment Code
 
 //special character array
-var specialChars = ["", "", ]
-
+var specialChars = ["!@#$%^&*()_+-=*~`.,"].trim();
+console.log(specialChars);
 // number
-var numbArray = ["1", "2",]
-
+var numbArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+console.log(numbArray)
 // lower
-var lowerCase = ["a", "b"]
-
+var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+console.log(lowerCase)
 // upper
 var upperCase = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ"]
-
+console.log(upperCase)
 // function to prompt user for passwork options -
 
 function getPassword () {
@@ -20,27 +20,29 @@ function getPassword () {
         var length = parseInt(prompt("How many characters would you like your password to be?"));
         
 
-
         //create a conditional statement to make sure password is actually a number
       if (Number.isNaN(length)){
-        alert("Password must be a number");
+        alert("Your password must contain a number...");
         return null
       };
 
         //conditional statement to check if password length is atleast 8
       if (length < 8){
-        alert("Password length must be at least 8 characters");
+        alert("Your password length must be at least 8 characters...");
         return null
 
       };
 
         // conditional statement ot check if passwork length is atleast 128 characters
       if (length > 128){
-        alert("Password length exceeds least 128 characters");
+        alert("Your password length exceeds the maximum length (128 characters)...");
         return null
       };
 
-  // create confirmation prompts for the type to characters the user wants to use in their password.
+  // create confirmation prompts for the type of characters the user wants to use in their password.
+
+  prompt("Perfect. It looks like you want to use: " + possiblePass + ". Does that sound correct?");0
+  confirm();
 
 
 
@@ -62,14 +64,14 @@ function getPassword () {
 
 // create a function for getting a random element from an array
 
-function generatePassword(arr){
-  var random = // smath problem array.length
+function generatePassword(possiblePass){
+  var random = ;// s math problem array.length
 
 
 
 
   // save them to a variable
-var rand = arr[random]
+var rand = possiblePass[random]
   // looping through this will print what the user wants (CREATE A RANDOM ARRAY, WHATEVER THE MATH PROBLEM STOPS AT GETS PLUGGED INTO THE ARRAY)
   // if the user only picked upper and lower, itll go into those arrays only, then plugs it into the equation 
 
