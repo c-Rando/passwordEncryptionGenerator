@@ -7,8 +7,8 @@
 var specialChars = ["!", "@", "#", "$", "%", "^", "&", "*", ",", "_", "+", "-", "~"]
 console.log(specialChars);
 // number 
-var numbArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-console.log(numbArray)
+var numeric = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+console.log(numeric)
 // lower
 var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 console.log(lowerCase)
@@ -17,7 +17,6 @@ var upperCase = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"
 console.log(upperCase)
 var ultArray = [];
 
-var usedSpec = window.confirm("Do you want to use special characters?")
 
 var generateBtn = document.getElementById("generate");
 
@@ -48,30 +47,87 @@ function writePassword() {
   var usedSpec = parseInt(
     prompt ("Would you like your password to contain special characters? Reply: Y/N")
   );
-
-    console.log(usedSpec);
-  if (usedSpec == "Y" || usedSpec == "N" || usedSpec == "n" || usedSpec == 'y' ());{
-    prompt("Would you like your password to contain special characters? Reply: Y/N");
-    console.log(usedSpec);
-  };    
-  else (usedSpec !== "Y" || usedSpec !== "N" ());{
-    alert("Please reply using 'Y' or 'N'...");
-    console.log(usedSpec)
+    console.log("specCheck");
+  if (usedSpec !== "Y" || usedSpec !== "N" || usedSpec !== "n" || usedSpec !== 'y' ()){
+    prompt("Would you like your password to contain numberic characters? Reply: Y/N")
+    console.log("numbCheck")
+  }
+  else {
+    alert("Please reply using 'Y' or 'N'...")
+    console.log("numbCheckFail")
     return null;
-  };
+  }
+  if (usedSpec !== "Y" || usedSpec !== "N" || usedSpec !== "n" || usedSpec !== 'y' ()){
+    prompt("Would you like your password to contain lowercase alphabet characters? Reply: Y/N")
+    console.log("caseCheckLower")
+  }
+  else {
+    alert("Please reply using 'Y' or 'N'...")
+    console.log("caseCheckLowerFail")
+    return null;
+  }
+  if (usedSpec !== "Y" || usedSpec !== "N" || usedSpec !== "n" || usedSpec !== 'y' ()){
+    prompt("Would you like your password to contain uppercase alphabet characters? Reply: Y/N")
+    console.log("caseCheckUpper")
+  }
+  else {
+    alert("Please reply using 'Y' or 'N'...")
+    console.log("caseCheckUpperFail")
+    return null;
+  }
 
+//create a function to retrieve a random element form an array
+function getRandomElement(arr) {
+  
+  var random = Math.floor(Math.random() * arr.length);
+  
+  var rand = arr[random];
+  return rand;  
+}
+
+
+  
 };
 
+function generatingPassword() {
+      //create variable to call getPassword function
+      var options = userPrompt();
+      // stores final password
+      var passResult = [];
+          // stores the possible characters to be included in password
+      var possibleChars = [];
+      // create a variable to store guaranteed characters
+      var guarChar = [];
 
+      if (options.specialChar) {
+        possibleChars = possibleChars.concat(specialChar);
+      }
+      if (options.lowerCase) {
+        possibleChars = possibleChars.concat(lowerCase);
+      }
+      if (options.upperCase) {
+        possibleChars = possibleChars.concat(upperCase);
+      }
+      if (options.numeric) {
+        possibleChars = possibleChars.concat(numeric);
+      }
 
+      for (let i = 0; i < options.length; i++) {
+        passResult[i] = getRandomElement(possibleChars);
+      }
+      console.log(passResult);
+      passResult = passResult.join("");
+      return passResult;
+  }
+}
 // function to prompt user for passwork options -
 
-function getPassword () {
+// function getPassword () {
 
-  // create a variable to store the length of the password - var 
-    //create a conditional statement to make sure password is actually a number
+//   // create a variable to store the length of the password - var 
+//     //create a conditional statement to make sure password is actually a number
 
-}
+// }
 
 
   
@@ -88,7 +144,7 @@ function getPassword () {
 //     specialChars: specialChars,
 //     lowerCase: lowerCase,
 //     upperCase: upperCase,
-//     numbArray: numbArray,
+//     numeric: numeric,
 //   }
 //   return possiblePass;
 // };
@@ -125,8 +181,8 @@ function getPassword () {
 // //   if (upperCase===true) {
 // //     caseArray.push(lowerCase)
 // //   }
-// //   if (numbArray===true) {
-// //     caseArray.push(numbArray)
+// //   if (numeric===true) {
+// //     caseArray.push(numeric)
 // //   }
 // //   if (specialChars===true) {
 // //     caseArray.push(specialChars)
