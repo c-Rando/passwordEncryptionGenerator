@@ -25,6 +25,8 @@ var generateBtn = document.getElementById("generate");
 generateBtn.addEventListener("click", writePassword);
 
 function writePassword() {
+
+  var options = {};
   var length = parseInt(
     prompt ("How many characters would you like your password to be?")
   );
@@ -33,6 +35,7 @@ function writePassword() {
     alert("Your password must contain a number...");
     return null
   };
+  options.length = length;
     //conditional statement to check if password length is atleast 8
   if (length < 8){
     alert("Your password length must be at least 8 characters...");
@@ -43,44 +46,35 @@ function writePassword() {
     alert("Your password length exceeds the maximum length (128 characters)...");
     return null
   };
-
-  var usedSpec = parseInt(
-    prompt ("Would you like your password to contain special characters? Reply: Y/N")
+  var usedSpec = confirm(
+    confirm ("Would you like your password to contain special characters? ")
   );
     console.log("specCheck");
-  if (usedSpec !== "Y" || usedSpec !== "N" || usedSpec !== "n" || usedSpec !== 'y' ()){
-    prompt("Would you like your password to contain numberic characters? Reply: Y/N")
+  if (usedNumeric){
+    confirm("Would you like your password to contain numberic characters?")
     console.log("numbCheck")
   }
-  else {
-    alert("Please reply using 'Y' or 'N'...")
-    console.log("numbCheckFail")
-    return null;
-  }
-  if (usedSpec !== "Y" || usedSpec !== "N" || usedSpec !== "n" || usedSpec !== 'y' ()){
-    prompt("Would you like your password to contain lowercase alphabet characters? Reply: Y/N")
+  if (usedLowerCase){
+    confirm("Would you like your password to contain lowercase alphabet characters?")
     console.log("caseCheckLower")
   }
-  else {
-    alert("Please reply using 'Y' or 'N'...")
-    console.log("caseCheckLowerFail")
-    return null;
-  }
-  if (usedSpec !== "Y" || usedSpec !== "N" || usedSpec !== "n" || usedSpec !== 'y' ()){
-    prompt("Would you like your password to contain uppercase alphabet characters? Reply: Y/N")
+  if (usedUpperCase){
+    confirm("Would you like your password to contain uppercase alphabet characters?")
     console.log("caseCheckUpper")
   }
   else {
-    alert("Please reply using 'Y' or 'N'...")
+    alert("You must select at least one input parameter")
     console.log("caseCheckUpperFail")
     return null;
   }
+  if (usedLowerCase == false && usedUpperCase == false && usedNumeric == false && usedSpec == false) {
+    alert("Please select one type of character");
+
+  // }
 
 //create a function to retrieve a random element form an array
 function getRandomElement(arr) {
-  
   var random = Math.floor(Math.random() * arr.length);
-  
   var rand = arr[random];
   return rand;  
 }
@@ -90,36 +84,41 @@ function getRandomElement(arr) {
 };
 
 function generatingPassword() {
-      //create variable to call getPassword function
-      var options = userPrompt();
-      // stores final password
-      var passResult = [];
-          // stores the possible characters to be included in password
-      var possibleChars = [];
-      // create a variable to store guaranteed characters
-      var guarChar = [];
+    //create variable to call getPassword function
+    var options = writePassword();
 
-      if (options.specialChar) {
-        possibleChars = possibleChars.concat(specialChar);
-      }
-      if (options.lowerCase) {
-        possibleChars = possibleChars.concat(lowerCase);
-      }
-      if (options.upperCase) {
-        possibleChars = possibleChars.concat(upperCase);
-      }
-      if (options.numeric) {
-        possibleChars = possibleChars.concat(numeric);
-      }
+    // stores final password
+    var passResult = [];
+        // stores the possible characters to be included in password
+    var possibleChars = [];
+    // create a variable to store guaranteed characters
+    var guarChar = [];
 
-      for (let i = 0; i < options.length; i++) {
-        passResult[i] = getRandomElement(possibleChars);
-      }
-      console.log(passResult);
-      passResult = passResult.join("");
-      return passResult;
+    if (options.specialChar) {
+      possibleChars = possibleChars.concat(specialChar);
+    }
+    if (options.lowerCase) {
+      possibleChars = possibleChars.concat(lowerCase);
+    }
+    if (options.upperCase) {
+      possibleChars = possibleChars.concat(upperCase);
+    }
+    if (options.numeric) {
+      possibleChars = possibleChars.concat(numeric);
+    }
+
+    for (let i = 0; i < options.length; i++) {
+      passResult[i] = getRandomElement(possibleChars);
+    }
+    console.log(passResult);
+    passResult = passResult.join("");
+    return passResult;
   }
 }
+
+
+
+
 // function to prompt user for passwork options -
 
 // function getPassword () {
