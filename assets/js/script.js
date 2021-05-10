@@ -4,17 +4,17 @@
 
 // ARRAYS []
 //special 
-var specialChars = ["!", "@", "#", "$", "%", "^", "&", "*", ",", "_", "+", "-", "~"]
+var specialChars = ["!", "@", "#", "$", "%", "^", "&", "*", ",", "_", "+", "-", "~"];
 console.log(specialChars);
 // number 
 var numeric = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-console.log(numeric)
+console.log(numeric);
 // lower
-var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-console.log(lowerCase)
+var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+console.log(lowerCase);
 // upper
-var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "W", "X", "Y", "Z"]
-console.log(upperCase)
+var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "W", "X", "Y", "Z"];
+console.log(upperCase);
 var ultArray = [];
 
 
@@ -24,9 +24,11 @@ var generateBtn = document.getElementById("generate");
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-function writePassword() {
 
-  var options = {};
+
+function passwordOptions() {
+  // gathering input parameters or options that user wants for their password // must return an object that stores all of these options, call the object in another function. this function will return that object in another location
+
   var length = parseInt(
     prompt("How many characters would you like your password to be?")
   );
@@ -35,7 +37,7 @@ function writePassword() {
     alert("Your password must contain a number...");
     return null
   };
-  options.length = length;
+
   //conditional statement to check if password length is atleast 8
   if (length < 8) {
     alert("Your password length must be at least 8 characters...");
@@ -46,74 +48,105 @@ function writePassword() {
     alert("Your password length exceeds the maximum length (128 characters)...");
     return null
   };
-  var usedSpec = confirm(
-    confirm("Would you like your password to contain special characters? ")
-  );
+  var usedSpec = confirm("Would you like your password to contain special characters? ")
   console.log("specCheck");
-  var usedNumeric
-  if (usedNumeric) {
-    confirm("Would you like your password to contain numberic characters?")
-    console.log("numbCheck")
-  }
-  var usedLowerCase
-  if (usedLowerCase) {
-    confirm("Would you like your password to contain lowercase alphabet characters?")
-    console.log("caseCheckLower")
-  }
-  var usedUpperCase
-  if (usedUpperCase) {
-    confirm("Would you like your password to contain uppercase alphabet characters?")
-    console.log("caseCheckUpper")
-  }
-  else {
-    alert("You must select at least one input parameter")
-    console.log("caseFail")
-    return null;
-  }
-  if (usedLowerCase == false && usedUpperCase == false && usedNumeric == false && usedSpec == false) {
+
+  var usedNumeric = confirm("Would you like your password to contain numeric characters?")
+  console.log("numbCheck")
+
+  var usedLowerCase = confirm("Would you like your password to contain lowercase alphabet characters?")
+  console.log("caseCheckLower")
+
+  var usedUpperCase = confirm("Would you like your password to contain uppercase alphabet characters?")
+  console.log("caseCheckUpper")
+
+  if (usedLowerCase === false && usedUpperCase === false && usedNumeric === false && usedSpec === false) {
     alert("Please select one type of character");
   };
-  //create a function to retrieve a random element form an array
 
+  
+  // represents an object 
+  var options = {
+    // property : value or key value pair... in order to get a value , you need a key
+    passwordLength: length,
+    specialChars: usedSpec,
+    lowerCase: usedLowerCase,
+    upperCase: usedUpperCase,
+    numeric: usedNumeric
+  };
+  console.log(options)
+  return options;
 };
 
-function getRandomElement(arr) {
-  var random = Math.floor(Math.random() * arr.length);
-  var rand = arr[random];
-  return rand;
-}
+
+//create a function to retrieve a random element form an array
+
+function getRandomElement(array) {
+  // function getRandomElement(arr) { (array) = equals a parameter that we are passing to a function
+  var randomIndex = Math.floor(Math.random() * array.length);
+  //  returns a random index from the array, with this 
+  var randomElement = array[randomIndex];
+  // array is passed to function, index it with this random index we returned above
+  return randomElement;
+};
 
 function generatingPassword() {
   //create variable to call getPassword function
-  var options = writePassword();
-
+  var options = passwordOptions();
   // stores final password
-  var passResult = [];
+  var passResult = []; // empty array
   // stores the possible characters to be included in password
   var possibleChars = [];
   // create a variable to store guaranteed characters
   var guarChar = [];
 
-  if (options.specialChar) {
-    possibleChars = possibleChars.concat(specialChar);
+
+  if (options.specialChars) {
+    possibleChars = possibleChars.concat(specialChars);
+    guarChar.push(getRandomElement(specialChars));
+    // array that were going to, and then the value we want to push into it 
   }
   if (options.lowerCase) {
     possibleChars = possibleChars.concat(lowerCase);
+    guarChar.push(getRandomElement(lowerCase));
   }
   if (options.upperCase) {
     possibleChars = possibleChars.concat(upperCase);
+    guarChar.push(getRandomElement(upperCase));
   }
   if (options.numeric) {
     possibleChars = possibleChars.concat(numeric);
+    guarChar.push(getRandomElement(numeric));
   }
 
-  for (let i = 0; i < options.length; i++) {
-    passResult[i] = getRandomElement(possibleChars);
+  for (var i = 0; i < options.passwordLength; i++) {
+    
+    var chosenChar = getRandomElement(possibleChars);
+
+    passResult.push(chosenChar);
+    // console.log(passResult)
   }
+  console.log(guarChar)
+  for (var i = 0; i < guarChar.length; i++) {
+    passResult[i] = guarChar[i]
+  }
+
+  // .join will join all of the elements of the array into a string 
   console.log(passResult);
-  passResult = passResult.join("");
-  return passResult;
+  // this becomes an array of strings
+  return passResult.join("");
 };
+
+
+function writePassword() {
+  var finalPassword = generatingPassword();
+  var password = document.querySelector("#password");
+  password.value = finalPassword 
+};
+
+
+
+
 
 
 
@@ -138,12 +171,12 @@ function generatingPassword() {
 //   // create an object to store the user input 
 //   var possiblePass = {
 //     // need to store length and call characters selected by user
-//     passwordLength: length,
-//     specialChars: specialChars,
-//     lowerCase: lowerCase,
-//     upperCase: upperCase,
-//     numeric: numeric,
-//   }
+  //   passwordLength: length,
+  //   specialChars: specialChars,
+  //   lowerCase: lowerCase,
+  //   upperCase: upperCase,
+  //   numeric: numeric,
+  // }
 //   return possiblePass;
 // };
 
@@ -162,7 +195,7 @@ function generatingPassword() {
 
 
 // // // Write password to the #password input
-// // function writePassword() {
+// // function passwordOptions() {
 // //   var password = generatePassword();
 // //   var passwordText = document.querySelector("#password");
 // //   passwordText.value = password;
